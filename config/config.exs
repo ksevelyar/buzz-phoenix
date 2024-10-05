@@ -20,7 +20,7 @@ config :buzz, BuzzWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Buzz.PubSub,
-  live_view: [signing_salt: "xdgsn52a"]
+  live_view: [signing_salt: "UwEO91Th"]
 
 # Configures Elixir's Logger
 config :logger, :console,

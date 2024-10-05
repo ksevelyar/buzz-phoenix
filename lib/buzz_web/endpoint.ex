@@ -7,13 +7,16 @@ defmodule BuzzWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_buzz_key",
-    signing_salt: "RSqWLLvB",
+    signing_salt: "xbubK5XT",
     same_site: "Lax"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket,
-    websocket: [connect_info: [session: @session_options]],
-    longpoll: [connect_info: [session: @session_options]]
+  socket "/socket", BuzzWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+  # socket "/live", Phoenix.LiveView.Socket,
+  #   websocket: [connect_info: [session: @session_options]],
+  #   longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -31,10 +34,6 @@ defmodule BuzzWeb.Endpoint do
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :buzz
   end
-
-  plug Phoenix.LiveDashboard.RequestLogger,
-    param_key: "request_logger",
-    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]

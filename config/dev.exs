@@ -19,11 +19,11 @@ config :buzz, Buzz.Repo,
 config :buzz, BuzzWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4001],
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "JEkNgLuS4bP6eWeRbJCZ6h4ybVISzRyOSU6mIYM9AWRY5VZfaMRi0gNulp8o/XgV",
+  secret_key_base: "eN+GcLSIPd/jJsL2Jvf6wtHXG/QeZi/C3ywAV1MV0ZM4asDGCPPSQKseaR3s8fLK",
   watchers: []
 
 # ## SSL Support

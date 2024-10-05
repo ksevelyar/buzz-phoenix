@@ -17,7 +17,7 @@ config :buzz, Buzz.Repo,
 # you can enable the server option below.
 config :buzz, BuzzWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "g4ZHBg1MLr6lXsu9gogw4LqPQDfsBe6k0DeC4ZECtjhhhJIJyCbJhlTUSrwcOAu8",
+  secret_key_base: "3K6xSle6wv1ORHrfXFxmpkM6gAmX2/PC4f5xEA/V3nC1Px4zvV/JPLHM2c/rbX7J",
   server: false
 
 # Print only warnings and errors during test
