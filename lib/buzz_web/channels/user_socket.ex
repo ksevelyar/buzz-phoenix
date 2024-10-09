@@ -19,7 +19,6 @@ defmodule BuzzWeb.UserSocket do
   # See the [`Channels guide`](https://hexdocs.pm/phoenix/channels.html)
   # for further details.
 
-
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into
@@ -36,7 +35,32 @@ defmodule BuzzWeb.UserSocket do
   # performing token verification on connect.
   @impl true
   def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+    {:ok, assign(socket, :handle, random_handle())}
+  end
+
+  defp random_handle() do
+    adjectives = ~w(strong perceptive enduring charming intelligent agile lucky)
+
+    names = [
+      "centaur",
+      "deathclaw",
+      "enclave soldier",
+      "floater",
+      "gecko",
+      "ghoul",
+      "giant rat",
+      "nightkin",
+      "radroach",
+      "radscorpion",
+      "raider",
+      "robobrain",
+      "sentry bot",
+      "spore plant",
+      "super mutant",
+      "wanamingo"
+    ]
+
+    "#{Enum.random(adjectives)} #{Enum.random(names)}"
   end
 
   # Socket IDs are topics that allow you to identify all sockets for a given user:

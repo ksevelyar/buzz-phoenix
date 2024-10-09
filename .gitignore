@@ -27,3 +27,4 @@ buzz-*.tar
 
 .nix-mix
 .direnv
+.erlang-history
