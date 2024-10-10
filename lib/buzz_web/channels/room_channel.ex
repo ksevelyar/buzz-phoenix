@@ -3,9 +3,22 @@ defmodule BuzzWeb.RoomChannel do
 
   @impl true
   def join("room:lobby", _payload, socket) do
-    broadcast!(socket, "user_joined", %{handle: socket.assigns[:handle]})
-
+    send(self(), :after_join)
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_info(:after_join, socket) do
+    broadcast(socket, "user_joined", %{handle: socket.assigns[:handle]})
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def terminate(_reason, socket) do
+    broadcast(socket, "user_disconnected", %{handle: socket.assigns[:handle]})
+
+    :ok
   end
 
   # Channels can be used in a request/response fashion
