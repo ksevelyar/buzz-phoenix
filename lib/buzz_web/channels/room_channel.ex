@@ -1,6 +1,8 @@
 defmodule BuzzWeb.RoomChannel do
   use BuzzWeb, :channel
 
+  alias Buzz.UserList
+
   @impl true
   def join("room:lobby", _payload, socket) do
     send(self(), :after_join)
@@ -9,14 +11,18 @@ defmodule BuzzWeb.RoomChannel do
 
   @impl true
   def handle_info(:after_join, socket) do
-    broadcast(socket, "user_joined", %{handle: socket.assigns[:handle]})
+    UserList.add(socket.assigns[:handle])
+
+    broadcast(socket, "user_list", %{users: UserList.get()})
 
     {:noreply, socket}
   end
 
   @impl true
   def terminate(_reason, socket) do
-    broadcast(socket, "user_disconnected", %{handle: socket.assigns[:handle]})
+    UserList.delete(socket.assigns[:handle])
+
+    broadcast(socket, "user_list", %{users: UserList.get()})
 
     :ok
   end
