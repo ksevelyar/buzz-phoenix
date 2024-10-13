@@ -38,7 +38,8 @@ defmodule BuzzWeb.RoomChannel do
   # broadcast to everyone in the current topic (room:lobby).
   @impl true
   def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
+    broadcast(socket, "shout", %{body: payload["body"], handle: socket.assigns.handle})
+
     {:noreply, socket}
   end
 end
