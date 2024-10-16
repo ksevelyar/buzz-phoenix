@@ -1,7 +1,7 @@
 defmodule BuzzWeb.RoomChannel do
   use BuzzWeb, :channel
 
-  alias Buzz.UserList
+  alias Buzz.{UserList, Chats}
 
   @impl true
   def join("room:lobby", _payload, socket) do
@@ -25,6 +25,18 @@ defmodule BuzzWeb.RoomChannel do
     broadcast(socket, "user_list", %{users: UserList.get()})
 
     :ok
+  end
+
+  @impl true
+  def handle_in("create_chat", %{"name" => chat_name}, socket) do
+    case Chats.create_chat(chat_name) do
+      {:ok, chat} ->
+        broadcast(socket, "new_chat", %{chat: chat})
+        {:reply, {:ok, %{chat: chat}}, socket}
+
+      {:error, reason} ->
+        {:reply, {:error, %{reason: reason}}, socket}
+    end
   end
 
   # Channels can be used in a request/response fashion
