@@ -1,4 +1,4 @@
-defmodule Buzz.Chats do
+defmodule Buzz.ChatServer do
   use GenServer
 
   def start_link(_) do
@@ -9,6 +9,10 @@ defmodule Buzz.Chats do
     GenServer.call(__MODULE__, {:create_chat, name})
   end
 
+  def get_chats() do
+    GenServer.call(__MODULE__, :get_chats)
+  end
+
   def init(state) do
     {:ok, state}
   end
@@ -17,7 +21,11 @@ defmodule Buzz.Chats do
     chat_id = generate_chat_id()
     chat = %{id: chat_id, name: name, users: []}
     new_state = Map.put(state, chat_id, chat)
-    {:reply, {:ok, chat}, new_state}
+    {:reply, {:ok, new_state}, new_state}
+  end
+
+  def handle_call(:get_chats, _from, state) do
+    {:reply, {:ok, state}, state}
   end
 
   defp generate_chat_id do

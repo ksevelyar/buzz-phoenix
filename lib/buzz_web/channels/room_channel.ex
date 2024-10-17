@@ -1,7 +1,7 @@
 defmodule BuzzWeb.RoomChannel do
   use BuzzWeb, :channel
 
-  alias Buzz.{UserList, Chats}
+  alias Buzz.{UserList, ChatServer}
 
   @impl true
   def join("room:lobby", _payload, socket) do
@@ -29,10 +29,10 @@ defmodule BuzzWeb.RoomChannel do
 
   @impl true
   def handle_in("create_chat", %{"name" => chat_name}, socket) do
-    case Chats.create_chat(chat_name) do
-      {:ok, chat} ->
-        broadcast(socket, "new_chat", %{chat: chat})
-        {:reply, {:ok, %{chat: chat}}, socket}
+    case ChatServer.create_chat(chat_name) do
+      {:ok, chats} ->
+        broadcast(socket, "chat_list", %{chats: chats})
+        {:noreply, socket}
 
       {:error, reason} ->
         {:reply, {:error, %{reason: reason}}, socket}
