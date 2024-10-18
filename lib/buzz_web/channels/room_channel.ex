@@ -14,6 +14,7 @@ defmodule BuzzWeb.RoomChannel do
     UserList.add(socket.assigns[:handle])
 
     broadcast(socket, "user_list", %{users: UserList.get()})
+    broadcast(socket, "chat_list", %{chats: ChatServer.get_chats()})
 
     {:noreply, socket}
   end

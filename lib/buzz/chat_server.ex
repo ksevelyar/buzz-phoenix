@@ -25,7 +25,7 @@ defmodule Buzz.ChatServer do
   end
 
   def handle_call(:get_chats, _from, state) do
-    {:reply, {:ok, state}, state}
+    {:reply, state, state}
   end
 
   defp generate_chat_id do
