@@ -12,6 +12,7 @@ defmodule Buzz.Application do
       Buzz.Repo,
       Buzz.UserList,
       Buzz.ChatServer,
+      Buzz.MessageServer,
       {DNSCluster, query: Application.get_env(:buzz, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Buzz.PubSub},
       # Start a worker by calling: Buzz.Worker.start_link(arg)

@@ -1,7 +1,7 @@
 defmodule BuzzWeb.RoomChannel do
   use BuzzWeb, :channel
 
-  alias Buzz.{UserList, ChatServer}
+  alias Buzz.{UserList, ChatServer, MessageServer}
 
   @impl true
   def join("room:lobby", _payload, socket) do
@@ -15,6 +15,7 @@ defmodule BuzzWeb.RoomChannel do
 
     broadcast(socket, "user_list", %{users: UserList.get()})
     broadcast(socket, "chat_list", %{chats: ChatServer.get_chats()})
+    broadcast(socket, "messages_list", %{messages: MessageServer.get_messages("lobby")})
 
     {:noreply, socket}
   end
@@ -51,7 +52,10 @@ defmodule BuzzWeb.RoomChannel do
   # broadcast to everyone in the current topic (room:lobby).
   @impl true
   def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", %{body: payload["body"], handle: socket.assigns.handle})
+    message = %{body: payload["body"], handle: socket.assigns.handle}
+
+    broadcast(socket, "shout", message)
+    MessageServer.add_mesage("lobby", message)
 
     {:noreply, socket}
   end
