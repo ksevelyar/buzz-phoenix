@@ -9,7 +9,6 @@ defmodule Buzz.Application do
   def start(_type, _args) do
     children = [
       BuzzWeb.Telemetry,
-      Buzz.Repo,
       Buzz.UserList,
       Buzz.ChatServer,
       Buzz.MessageServer,

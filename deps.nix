@@ -34,32 +34,6 @@ let
       beamDeps = [];
     };
 
-    db_connection = buildMix rec {
-      name = "db_connection";
-      version = "2.7.0";
-
-      src = fetchHex {
-        pkg = "db_connection";
-        version = "${version}";
-        sha256 = "dcf08f31b2701f857dfc787fbad78223d61a32204f217f15e881dd93e4bdd3ff";
-      };
-
-      beamDeps = [ telemetry ];
-    };
-
-    decimal = buildMix rec {
-      name = "decimal";
-      version = "2.1.1";
-
-      src = fetchHex {
-        pkg = "decimal";
-        version = "${version}";
-        sha256 = "53cfe5f497ed0e7771ae1a475575603d77425099ba5faef9394932b35020ffcc";
-      };
-
-      beamDeps = [];
-    };
-
     dns_cluster = buildMix rec {
       name = "dns_cluster";
       version = "0.1.3";
@@ -71,32 +45,6 @@ let
       };
 
       beamDeps = [];
-    };
-
-    ecto = buildMix rec {
-      name = "ecto";
-      version = "3.12.3";
-
-      src = fetchHex {
-        pkg = "ecto";
-        version = "${version}";
-        sha256 = "9efd91506ae722f95e48dc49e70d0cb632ede3b7a23896252a60a14ac6d59165";
-      };
-
-      beamDeps = [ decimal jason telemetry ];
-    };
-
-    ecto_sql = buildMix rec {
-      name = "ecto_sql";
-      version = "3.12.0";
-
-      src = fetchHex {
-        pkg = "ecto_sql";
-        version = "${version}";
-        sha256 = "dc9e4d206f274f3947e96142a8fdc5f69a2a6a9abb4649ef5c882323b6d512f0";
-      };
-
-      beamDeps = [ db_connection ecto postgrex telemetry ];
     };
 
     expo = buildMix rec {
@@ -148,7 +96,7 @@ let
         sha256 = "c5eb0cab91f094599f94d55bc63409236a8ec69a21a67814529e8d5f6cc90b3b";
       };
 
-      beamDeps = [ decimal ];
+      beamDeps = [];
     };
 
     mime = buildMix rec {
@@ -177,58 +125,6 @@ let
       beamDeps = [ castore jason phoenix_pubsub phoenix_template plug plug_crypto telemetry websock_adapter ];
     };
 
-    phoenix_ecto = buildMix rec {
-      name = "phoenix_ecto";
-      version = "4.6.2";
-
-      src = fetchHex {
-        pkg = "phoenix_ecto";
-        version = "${version}";
-        sha256 = "3f94d025f59de86be00f5f8c5dd7b5965a3298458d21ab1c328488be3b5fcd59";
-      };
-
-      beamDeps = [ ecto phoenix_html plug postgrex ];
-    };
-
-    phoenix_html = buildMix rec {
-      name = "phoenix_html";
-      version = "4.1.1";
-
-      src = fetchHex {
-        pkg = "phoenix_html";
-        version = "${version}";
-        sha256 = "f2f2df5a72bc9a2f510b21497fd7d2b86d932ec0598f0210fed4114adc546c6f";
-      };
-
-      beamDeps = [];
-    };
-
-    phoenix_live_dashboard = buildMix rec {
-      name = "phoenix_live_dashboard";
-      version = "0.8.4";
-
-      src = fetchHex {
-        pkg = "phoenix_live_dashboard";
-        version = "${version}";
-        sha256 = "2984aae96994fbc5c61795a73b8fb58153b41ff934019cfb522343d2d3817d59";
-      };
-
-      beamDeps = [ ecto mime phoenix_live_view telemetry_metrics ];
-    };
-
-    phoenix_live_view = buildMix rec {
-      name = "phoenix_live_view";
-      version = "0.20.17";
-
-      src = fetchHex {
-        pkg = "phoenix_live_view";
-        version = "${version}";
-        sha256 = "a61d741ffb78c85fdbca0de084da6a48f8ceb5261a79165b5a0b59e5f65ce98b";
-      };
-
-      beamDeps = [ jason phoenix phoenix_html phoenix_template plug telemetry ];
-    };
-
     phoenix_pubsub = buildMix rec {
       name = "phoenix_pubsub";
       version = "2.1.3";
@@ -252,7 +148,7 @@ let
         sha256 = "2c0c81f0e5c6753faf5cca2f229c9709919aba34fab866d3bc05060c9c444206";
       };
 
-      beamDeps = [ phoenix_html ];
+      beamDeps = [];
     };
 
     plug = buildMix rec {
@@ -279,19 +175,6 @@ let
       };
 
       beamDeps = [];
-    };
-
-    postgrex = buildMix rec {
-      name = "postgrex";
-      version = "0.19.1";
-
-      src = fetchHex {
-        pkg = "postgrex";
-        version = "${version}";
-        sha256 = "8bac7885a18f381e091ec6caf41bda7bb8c77912bb0e9285212829afe5d8a8f8";
-      };
-
-      beamDeps = [ db_connection decimal jason ];
     };
 
     telemetry = buildRebar3 rec {

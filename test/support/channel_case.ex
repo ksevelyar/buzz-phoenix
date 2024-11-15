@@ -28,8 +28,7 @@ defmodule BuzzWeb.ChannelCase do
     end
   end
 
-  setup tags do
-    Buzz.DataCase.setup_sandbox(tags)
+  setup _tags do
     :ok
   end
 end

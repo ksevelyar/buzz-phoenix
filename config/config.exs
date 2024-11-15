@@ -7,9 +7,9 @@
 # General application configuration
 import Config
 
-config :buzz,
-  ecto_repos: [Buzz.Repo],
-  generators: [timestamp_type: :utc_datetime, binary_id: true]
+# config :buzz,
+#   ecto_repos: [Buzz.Repo],
+#   generators: [timestamp_type: :utc_datetime, binary_id: true]
 
 # Configures the endpoint
 config :buzz, BuzzWeb.Endpoint,
