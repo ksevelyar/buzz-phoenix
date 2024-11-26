@@ -6,7 +6,13 @@ defmodule Buzz.UserList do
   end
 
   def add(user) do
-    Agent.update(__MODULE__, fn users -> [user | users] end)
+    Agent.update(__MODULE__, fn users ->
+      if user in users do
+        users
+      else
+        [user | users]
+      end
+    end)
   end
 
   def delete(user) do
