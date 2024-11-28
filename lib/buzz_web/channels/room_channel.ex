@@ -10,21 +10,22 @@ defmodule BuzzWeb.RoomChannel do
   end
 
   @impl true
-  def handle_info({:after_join, name}, socket) do
-    UserList.add(socket.assigns[:handle])
+  def handle_info({:after_join, chat_name}, socket) do
+    UserList.add(chat_name, socket.assigns[:handle])
 
-    broadcast(socket, "user_list", %{users: UserList.get()})
+    broadcast(socket, "user_list", %{users: UserList.get(chat_name)})
     broadcast(socket, "chat_list", %{chats: ChatServer.get_chats()})
-    broadcast(socket, "messages_list", %{messages: MessageServer.get_messages(name)})
+    broadcast(socket, "messages_list", %{messages: MessageServer.get_messages(chat_name)})
 
     {:noreply, socket}
   end
 
   @impl true
   def terminate(_reason, socket) do
-    UserList.delete(socket.assigns[:handle])
+    "room:" <> chat_name = socket.topic
+    UserList.remove(chat_name, socket.assigns[:handle])
 
-    broadcast(socket, "user_list", %{users: UserList.get()})
+    broadcast(socket, "user_list", %{users: UserList.get(chat_name)})
 
     :ok
   end
