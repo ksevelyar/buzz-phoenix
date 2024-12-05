@@ -6,14 +6,19 @@ defmodule BuzzWeb.RoomChannel do
   @impl true
   def join("room:" <> name, _payload, socket) do
     send(self(), {:after_join, name})
+
     {:ok, socket}
   end
 
   @impl true
   def handle_info({:after_join, chat_name}, socket) do
     UserList.add(chat_name, socket.assigns[:handle])
+    push(socket, "handle", %{handle: socket.assigns.handle})
 
-    broadcast(socket, "user_list", %{users: UserList.get(chat_name)})
+    broadcast(socket, "user_list", %{
+      users: UserList.get(chat_name)
+    })
+
     broadcast(socket, "chat_list", %{chats: ChatServer.get_chats()})
     broadcast(socket, "messages_list", %{messages: MessageServer.get_messages(chat_name)})
 
